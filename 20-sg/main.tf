@@ -31,5 +31,24 @@ module "frontend_sg" {
     terraform = "true"
     component = "expense"
   } 
-  
+}
+resource "aws_security_group_rule" "mysql_to_backend" {
+  type = "ingress"
+  from_port = 3306
+  to_port = 3306  
+  protocol = "tcp"
+  security_group_id = module.mysql_sg.id
+  source_security_group_id = module.backend_sg.id
+  description = "Allow MySQL traffic from Backend"  
+
+}
+resource "aws_security_group_rule" "backend_to_frontend" {
+  type = "ingress"
+  from_port = 8080
+  to_port = 8080
+  protocol = "tcp"
+  source_security_group_id = module.frontend_sg.id
+  security_group_id = module.backend_sg.id
+
+
 }
