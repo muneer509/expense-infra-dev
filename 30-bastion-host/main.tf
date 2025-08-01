@@ -5,10 +5,14 @@ module "bastion_host" {
 
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.bastion_host_sg_id]
-  subnet_id     = "subnet-eddcdzz4"
+  subnet_id     = local.public_subnet_id
+  ami = data.aws_ami.joindevops.id
 
   tags = {
     Terraform   = "true"
     Environment = "dev"
+    component = "bastion_host"
+    Name = "bastion_host"
+
   }
 }
