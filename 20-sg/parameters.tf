@@ -1,5 +1,5 @@
 resource "aws_ssm_parameter" "mysql_sg" {
-  name        = "/${var.project_name}/${var.environment}/mysql-sgs"
+  name        = "/${var.project_name}/${var.environment}/mysql-sg"
   description = "Security Group for MySQL"
   type        = "String"
   value       = module.mysql_sg.id
@@ -18,4 +18,10 @@ resource "aws_ssm_parameter" "frontend_sg" {
   type        = "String"
   value       = module.frontend_sg.id
   
+}
+resource "aws_ssm_parameter" "bastion_sg" {
+  name = "/${var.project_name}/${var.environment}/bastion_host_sg"
+  description = "Security Group for bastion"
+  type = "String"
+  value = module.bastion_sg.id
 }
