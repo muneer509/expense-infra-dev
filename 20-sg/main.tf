@@ -43,6 +43,18 @@ module "bastion_sg" {
     component = "expense"
   } 
 }
+module "ansible_sg" {
+    source = "git::https://github.com/daws-81s/terraform-aws-security-group.git?ref=main"
+  project_name = var.project_name
+  environment = var.environment   
+  sg_name = "ansible_sg"
+  vpc_id = local.vpc_id   
+  common_tags = {
+    terraform = "true"
+    component = "expense"
+  } 
+}
+
 resource "aws_security_group_rule" "mysql_to_backend" {
   type = "ingress"
   from_port = 3306

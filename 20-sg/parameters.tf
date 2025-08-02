@@ -25,3 +25,9 @@ resource "aws_ssm_parameter" "bastion_sg" {
   type = "String"
   value = module.bastion_sg.id
 }
+resource "aws_ssm_parameter" "ansible_sg" {
+  name = "/${var.project_name}/${var.environment}/ansible_sg"
+  description = "Security Group for bastion"
+  type = "String"
+  value = module.bastion_sg.id
+}
